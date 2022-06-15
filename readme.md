@@ -19,7 +19,7 @@ The `AMEx_Loss/MyTrain` includes how the AMEx is used in the optimizer.
 ## AMEx Loss & MEx Loss on Semantic Inpainting on Segmentation Map (SISM)
 ![alt 属性文本](./SISM_Process.png)
 
-The environment is in `semantic_editing/py35pt041/yaml`.
+The environment is in `semantic_editing/py35pt041.yaml`.
 
 ### For cityscape
 
