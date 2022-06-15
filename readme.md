@@ -4,6 +4,7 @@ This is the code for *Neurocomputing 2022* paper [Semantic Inpainting on Segment
 ![alt ](./MEx_Loss.png)
 
 Folder `AMEx_Loss` includes key files for AMEx loss on natural image inpaitning.
+
 Comparing with MEx loss, AMEx loss uses an image in full size but masks its different-size parts as 0; AMEx uses only one discriminator.
 
 
@@ -12,7 +13,7 @@ It includes both MEx loss and AMEx loss on SISM.
 It does not include the downstream task, which use the SISM output as input in a downstream task(e.g. image translation task, semantic image inpainting...).
 
 ## AMEx Loss on natural image processing
-The AMEx Loss are implmented in `AMEx_Loss/net_gl_mex.py-> _netlocalD`. 
+The AMEx Loss is implmented in `AMEx_Loss/net_gl_mex.py-> _netlocalD`. 
 
 The original Global and Local GAN loss is in `AMEx_Loss/net_gl.py-> _netlocalD`.
 
