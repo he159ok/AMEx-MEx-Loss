@@ -105,28 +105,14 @@ streamHandler.setFormatter(fomatter)
 logger.addHandler(streamHandler)
 logger.setLevel(logging.INFO)
 
-G_grad = []
-D_grad = []
-G_loss = []
-D_loss = []
-out_dir = './grad_res/'
-if not os.path.exists(out_dir):
-    os.makedirs(out_dir)
 
 mode = 'GL'
 print('current mode is:', mode)
-if mode == 'GL':
-    D2_grad = []
 
 def train(epoch, opt):
     real_label = 1
     fake_label = 0
-    mid_D_grad = []
-    mid_G_grad = []
-    mid_D_loss = []
-    mid_G_loss = []
-    if mode == 'GL':
-        mid_D2_grad = []
+
 
     for iteration, batch in tqdm(enumerate(training_data_loader, 1), total=len(training_data_loader)):
         input, target, input_masked = batch[0].to(
@@ -148,7 +134,6 @@ def train(epoch, opt):
             output = netD(real_cpu, mask_tensor)
         D_real_loss = criterionGAN(output, label)
         D_real_loss.backward()
-        D_x = output.mean().item()
 
 
         # train with fake
@@ -160,20 +145,12 @@ def train(epoch, opt):
             output = netD(fake.detach(), mask_tensor)
         D_fake_loss = criterionGAN(output, label)
         D_fake_loss.backward()
-        D_G_z1 = output.mean().item()
 
         loss_d = (D_real_loss + D_fake_loss) * opt.gan_wei
         optimizerD.step()
-        mid_D_loss.append(float(loss_d))
 
 
-        # for p in list(netD.parameters()):
-        #     mid_D_grad.append(np.mean(float(torch.mean(p))))
-        p = list(netD.parameters())[0]
-        mid_D_grad.append(float(torch.mean(p)))
-        if mode == 'GL':
-            q = list(netD.parameters())[18]
-            mid_D2_grad.append(float(torch.mean(q)))
+
 
 
         ############################
@@ -192,32 +169,9 @@ def train(epoch, opt):
 
         loss_g.backward()
         optimizerG.step()
-        mid_G_loss.append(float(loss_g))
 
 
-        # for p in list(netG.parameters()):
-        #     mid_G_grad.append(np.mean(float(torch.mean(p))))
-        p = list(netG.parameters())[0]
-        mid_G_grad.append(float(torch.mean(p)))
 
-    G_grad.append(np.mean(mid_G_grad))
-    D_grad.append(np.mean(mid_D_grad))
-    G_loss.append(np.mean(mid_G_loss))
-    D_loss.append(np.mean(mid_D_loss))
-    if mode == 'GL':
-        D2_grad.append(np.mean(mid_D2_grad))
-
-    if mode == 'G' or mode == 'L':
-        np.save(os.path.join(out_dir, mode+'_Gen_grad.npy'), G_grad)
-        np.save(os.path.join(out_dir, mode+'_Dis_grad.npy'), D_grad)
-        np.save(os.path.join(out_dir, mode + '_Gen_loss.npy'), G_loss)
-        np.save(os.path.join(out_dir, mode + '_Dis_loss.npy'), D_loss)
-    if mode == 'GL':
-        np.save(os.path.join(out_dir, mode+'_G_grad.npy'), G_grad)
-        np.save(os.path.join(out_dir, mode+'_D_Go_grad.npy'), D_grad)
-        np.save(os.path.join(out_dir, mode + '_D_Lo_grad.npy'), D2_grad)
-        np.save(os.path.join(out_dir, mode + '_Gen_loss.npy'), G_loss)
-        np.save(os.path.join(out_dir, mode + '_Dis_loss.npy'), D_loss)
 
 
 
