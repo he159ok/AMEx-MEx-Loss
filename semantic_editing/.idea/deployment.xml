@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="On explicit save action" serverName="NVC_SemanticEdit" autoUploadExternalChanges="true">
+    <serverData>
+      <paths name="NVC_SemanticEdit">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/jfhe/Documents/MountHe/jfhe/Project" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/results" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/checkpoints" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/datasets" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/datasets2" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/ED_pretrained_classifier_gpu0.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/pkl_file" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/ED_pretrained_classifier_gpu0_Helen.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/ED_pretrained_classifier_gpu0.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/ED_pretrained_classifier_gpu0_NYU.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/ED_pretrained_classifier_gpu1.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/ED_pretrained_classifier_gpu1_Helen.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/ED_pretrained_classifier_gpu1_NYU.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/ED_val_pretrained_classifier_gpu0.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/ED_val_pretrained_classifier_gpu1.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/TE_pretrained_classifier_gpu1.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/TE_pretrained_classifier_gpu1_Helen.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/TE_pretrained_classifier_gpu1_NYU.pkl" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/ECCV_Backup.zip" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/ECCV_code0211.zip" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/nyu_depth_v2_labeled.npy" />
+            <excludedPath path="/home/jfhe/Documents/MountHe/jfhe/Project/static" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ON_EXPLICIT_SAVE" />
+  </component>
+</project>
