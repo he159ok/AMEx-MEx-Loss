@@ -1,9 +1,11 @@
 # Code Introduction
 This is the code for *Neurocomputing 2022* paper [Semantic Inpainting on Segmentation Map via Multi-Expansion Loss](https://www.sciencedirect.com/science/article/abs/pii/S0925231222007433)
 
-![alt 属性文本](./MEx_Loss.png)
+![alt ](./MEx_Loss.png)
 
 Folder `AMEx_Loss` includes key files for AMEx loss on natural image inpaitning.
+Comparing with MEx loss, AMEx loss uses an image in full size but masks its different-size parts as 0; AMEx uses only one discriminator.
+
 
 Folder `semantic_editing` includes the implementation of 3-channel SISM task. 
 It includes both MEx loss and AMEx loss on SISM.
@@ -17,7 +19,7 @@ The original Global and Local GAN loss is in `AMEx_Loss/net_gl.py-> _netlocalD`.
 The `AMEx_Loss/MyTrain` includes how the AMEx is used in the optimizer.
 
 ## AMEx Loss & MEx Loss on Semantic Inpainting on Segmentation Map (SISM)
-![alt 属性文本](./SISM_Process.png)
+![alt ](./SISM_Process.png)
 
 The environment is in `semantic_editing/py35pt041.yaml`.
 
