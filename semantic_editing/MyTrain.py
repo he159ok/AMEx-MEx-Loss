@@ -21,8 +21,6 @@ import json
 import MyFunc
 
 # 上述描写中表明使用BCE_loss会导致不稳定的求导，这时使用BCEWithLogitsLoss()函数即可。
-# This is change from JF's Mac
-# This is change from JF's Ubuntu
 opt = TrainOptions().parse()  # 进行参数的设置和写入这些参数去opt.txt文件中
 # opt.use_full_data = False
 iter_path = os.path.join(opt.checkpoints_dir, opt.name, 'iter.txt')
