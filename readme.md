@@ -37,5 +37,5 @@ For Pipeline + AMEx Loss,
 
 For evaluation (replace `--name` by a trained model name):
 
-`python MyTest_backup_0902.py --Te --name lable2city_128p_Full_OnlyMultiEx --model lable2city_128p_Full_OnlyMultiEx_Approx --which_epoch 200 --netG generator_from_SPADE --is_scGraph 3 --label_nc 36 --dataroot ./datasets2/cityscapes/ --ImageFileEnd _img2labelcolor --how_many 501 --gpu_ids 0 --is_shapePrior 0 --is_ClassiForShape 0 --loadSize 256 --fineSize 128`
+`python MyTest_backup_0902.py --Te --name lable2city_128p_Full_OnlyMultiEx_Approx --model MyBasePix2PixHDModel --which_epoch 200 --netG generator_from_SPADE --is_scGraph 3 --label_nc 36 --dataroot ./datasets2/cityscapes/ --ImageFileEnd _img2labelcolor --how_many 501 --gpu_ids 0 --is_shapePrior 0 --is_ClassiForShape 0 --loadSize 256 --fineSize 128`
 
