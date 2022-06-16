@@ -3,7 +3,23 @@
   <component name="ChangeListManager">
     <list default="true" id="4fc8d33c-5b52-4350-8ee8-ea504f7ff333" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMEx_Loss/MyTrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/AMEx_Loss/MyTrain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/MyTest_backup_0902.py" beforeDir="false" afterPath="$PROJECT_DIR$/semantic_editing/MyTest_backup_0902.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/py35pt041.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/MEx_City.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/test_1024p.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/test_1024p_feat.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/test_512p.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/test_512p_feat.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/train_1024p_12G.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/train_1024p_24G.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/train_1024p_feat_12G.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/train_1024p_feat_24G.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/train_512p.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/train_512p_feat.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/train_512p_fp16.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/train_512p_fp16_multigpu.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_editing/scripts/train_512p_multigpu.sh" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +54,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1655325186657</updated>
-      <workItem from="1655325189225" duration="7307000" />
+      <workItem from="1655325189225" duration="8807000" />
     </task>
     <servers />
   </component>

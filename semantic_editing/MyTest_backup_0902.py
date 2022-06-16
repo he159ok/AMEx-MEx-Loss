@@ -56,8 +56,7 @@ print("Test Read MeanShape_dict2 Successfully!")
 
 SuitableObjeID = eval(opt.SuitableObjeID)
 ExcVal = 35  # city might be 35/36, helen 11 NYU895
-class_N = 36  # NYU 895/896 cityscapes_newcolor 36   Helen 12 cityscapes_ori_color 35
-#
+class_N = 36  # NYU 895/896 cityscapes_newcolor 36   Helen 12
 
 removalOjbID = 'random'
 randomSeedID = 679
@@ -189,10 +188,9 @@ for i, data in enumerate(dataset):
 
     elif opt.is_scGraph == 3:  # 使用手动输入一个item
         try:
-            InComLableMap, InComInstMap, InComImg, SelectedObj, SelectedCalss, SelectedBox, isNone, SpeciObjMap = \
-                MyFunc.SelfSupervisePrePro_Basic(data['label'], data['inst'], data['image'], data['feat'],
-                                                 SuitableObjeID, ExcVal, PredefinedSize, removalOjbID, randomSeedID)
-
+            InComLableMap, InComInstMap, InComImg, SelectedObj, SelectedCalss, SelectedBox, isNone = MyFunc.SelfSupervisePrePro_Basic(
+                data['label'], data['inst'], data['image'], data['feat'], SuitableObjeID, ExcVal, PredefinedSize,
+                removalOjbID, randomSeedID)
         except:
             skip_jsq = skip_jsq + 1
             print('skip !!!!')
@@ -221,8 +219,8 @@ for i, data in enumerate(dataset):
         #     SelectedCalss = '26'
         # # elif SelectedCalss == '26':
         # #     SelectedCalss = '24'
-        InComLableMap[:, :, SelectedBox[0]:SelectedBox[1]+1, SelectedBox[2]:SelectedBox[3]+1] = int(SelectedCalss)
-        InComInstMap[:, :, SelectedBox[0]:SelectedBox[1]+1, SelectedBox[2]:SelectedBox[3]+1] = int(
+        InComLableMap[:, :, SelectedBox[0]:SelectedBox[1], SelectedBox[2]:SelectedBox[3]] = int(SelectedCalss)
+        InComInstMap[:, :, SelectedBox[0]:SelectedBox[1], SelectedBox[2]:SelectedBox[3]] = int(
             SelectedCalss) * 1000 + 100
         SelectedObjLayer = MyFunc.FillShapeAllSameVal(SelectedBox, MapSize, 1)
 
@@ -252,21 +250,21 @@ for i, data in enumerate(dataset):
                 mid_loc = np.argmin(row_sum)
                 Gen_ComLabelMap[:, :, ii, jj] = mid_loc.astype(float)
         Gen_F_ComLMap = copy.deepcopy(InComLableMap)
-        Gen_F_ComLMap[:, :, SelectedBox[0]:SelectedBox[1]+1, SelectedBox[2]:SelectedBox[3]+1] = Gen_ComLabelMap[:, :,
+        Gen_F_ComLMap[:, :, SelectedBox[0]:SelectedBox[1], SelectedBox[2]:SelectedBox[3]] = Gen_ComLabelMap[:, :,
                                                                                             SelectedBox[0]:SelectedBox[
-                                                                                                1]+1,
+                                                                                                1],
                                                                                             SelectedBox[2]:SelectedBox[
-                                                                                                3]+1]
+                                                                                                3]]
         # Gen_F_LocalMap = torch.zeros(1, 1, SelectedBox[1] - SelectedBox[0], SelectedBox[3] - SelectedBox[2])
-        Gen_F_LocalMap = Gen_ComLabelMap[:, :, SelectedBox[0]:SelectedBox[1]+1, SelectedBox[2]:SelectedBox[3]+1]
-        Ori_R_LocalMap = data['label'][:, :, SelectedBox[0]:SelectedBox[1]+1, SelectedBox[2]+1:SelectedBox[3]+1]
+        Gen_F_LocalMap = Gen_ComLabelMap[:, :, SelectedBox[0]:SelectedBox[1], SelectedBox[2]:SelectedBox[3]]
+        Ori_R_LocalMap = data['label'][:, :, SelectedBox[0]:SelectedBox[1], SelectedBox[2]:SelectedBox[3]]
 
         # Gen_F_ComIMap = copy.deepcopy(InComInstMap)
         # Gen_F_ComIMap[:, :, SelectedBox[0]:SelectedBox[1], SelectedBox[2]:SelectedBox[3]] = Gen_ComLabelMap[:, :, SelectedBox[0]:SelectedBox[1], SelectedBox[2]:SelectedBox[3]]
 
         # 以上为校准数据到标准的ｃｏｌｏｒｍａｐ
 
-        local_part_image = util.tensor2label(Gen_F_LocalMap[0], opt.label_nc)  # 0-255 三通道 36 for my setting, original is 35 for second parameter
+        local_part_image = util.tensor2label(Gen_F_LocalMap[0], opt.label_nc)  # 0-255 三通道
         # 以下为计算shape classification
         # local_part_image2 = F.to_pil_image(local_part_image.transpose(2, 0, 1))
         # local_part_image2 = F.to_pil_image(local_part_image.transpose(2, 0, 1))
@@ -278,15 +276,15 @@ for i, data in enumerate(dataset):
         local_part_image_nor = transforms.Compose(transform_list)(B)  # 预期应该是 -1 ~ 1之间的一个三通道
         local_part_image_nor = torch.tensor(local_part_image_nor).unsqueeze(0)
         local_part_image_shape = MyFunc.pt_get_edges(local_part_image_nor)
-        # mid_shape_res = pretrained_classifier.model(local_part_image_shape.cuda())
-        # shape_val, shape_loc = torch.max(mid_shape_res, 1)
-        # shape_Te.append(shape_loc.tolist()[0])
-        # shape_GT.append(SuitableObjeID2ProjectedLabel[SelectedCalss])
+        mid_shape_res = pretrained_classifier.model(local_part_image_shape.cuda())
+        shape_val, shape_loc = torch.max(mid_shape_res, 1)
+        shape_Te.append(shape_loc.tolist()[0])
+        shape_GT.append(SuitableObjeID2ProjectedLabel[SelectedCalss])
         # 以上为计算shape classification
 
         # 以下为计算色彩MSE
-        local_part_image_real = data['image'][:, :, SelectedBox[0]:SelectedBox[1]+1,
-                                SelectedBox[2]:SelectedBox[3]+1]  # 应该是-1~1
+        local_part_image_real = data['image'][:, :, SelectedBox[0]:SelectedBox[1],
+                                SelectedBox[2]:SelectedBox[3]]  # 应该是-1~1
         mid_MSE = 0
         for cha in range(local_part_image_real.shape[1]):
             mid_loc_real = local_part_image_real[:, cha, :, :].squeeze(0)
@@ -296,8 +294,8 @@ for i, data in enumerate(dataset):
         # 以上为计算色彩MSE
 
         # 以下为计算label_Hamming
-        local_part_image_real = data['label'][:, :, SelectedBox[0]:SelectedBox[1]+1,
-                                SelectedBox[2]:SelectedBox[3]+1]  # 应该是-1~1
+        local_part_image_real = data['label'][:, :, SelectedBox[0]:SelectedBox[1],
+                                SelectedBox[2]:SelectedBox[3]]  # 应该是-1~1
         mid_MSE2 = 0
         local_area = local_part_image_real.shape[2] * local_part_image_real.shape[3]
         for cha in range(local_part_image_real.shape[1]):
@@ -308,7 +306,7 @@ for i, data in enumerate(dataset):
         # 以上为计算label_Hamming
 
         # 以下为计算mIOU
-        local_part_label_real = data['label'][:, :, SelectedBox[0]:SelectedBox[1]+1, SelectedBox[2]:SelectedBox[3]+1]
+        local_part_label_real = data['label'][:, :, SelectedBox[0]:SelectedBox[1], SelectedBox[2]:SelectedBox[3]]
         local_part_label_fake = Gen_F_LocalMap
         iouWiNan, iouWoNan = MyFunc.iou(local_part_label_fake[0, 0, :, :].contiguous(),
                                         local_part_label_real[0, 0, :, :].contiguous(), class_N, False)
@@ -316,7 +314,7 @@ for i, data in enumerate(dataset):
         mIOU_ChoseObj_list.append(iouWiNan[int(SelectedCalss)])
         mIOU_AllObj_list.append(iouWoNan.sum() / len(iouWoNan))
         # 以上为计算mIOU
-    # opt.label_nc = 35
+
     # 存储图片
     visuals = OrderedDict([('SynMask_image_colormap', util.tensor2label(Gen_F_ComLMap[0], opt.label_nc)),
                            ('ComSeg_colormap', util.tensor2label(data['label'][0], opt.label_nc)),
@@ -351,20 +349,20 @@ for i, data in enumerate(dataset):
     print('showing image removes:', SelectedObj)
 
 # 计算shape accuracy
-# shape_accuracy = metrics.accuracy_score(shape_GT, shape_Te, normalize=False)
-# shape_macro_pre = metrics.precision_score(shape_GT, shape_Te, average='macro')
-# shape_micro_pre = metrics.precision_score(shape_GT, shape_Te, average='micro')
-# shape_macro_rec = metrics.recall_score(shape_GT, shape_Te, average='macro')
-# shape_micro_rec = metrics.recall_score(shape_GT, shape_Te, average='micro')
-# shape_F1 = metrics.f1_score(shape_GT, shape_Te, average='weighted')
+shape_accuracy = metrics.accuracy_score(shape_GT, shape_Te, normalize=False)
+shape_macro_pre = metrics.precision_score(shape_GT, shape_Te, average='macro')
+shape_micro_pre = metrics.precision_score(shape_GT, shape_Te, average='micro')
+shape_macro_rec = metrics.recall_score(shape_GT, shape_Te, average='macro')
+shape_micro_rec = metrics.recall_score(shape_GT, shape_Te, average='micro')
+shape_F1 = metrics.f1_score(shape_GT, shape_Te, average='weighted')
 
-# print("model_name", opt.name)
-# print("shape_accuracy", shape_accuracy)
-# print("shape_macro_pre", shape_macro_pre)
-# print("shape_micro_pre", shape_micro_pre)
-# print("shape_macro_rec", shape_macro_rec)
-# print("shape_micro_rec", shape_micro_rec)
-# print("shape_F1", shape_F1)
+print("model_name", opt.name)
+print("shape_accuracy", shape_accuracy)
+print("shape_macro_pre", shape_macro_pre)
+print("shape_micro_pre", shape_micro_pre)
+print("shape_macro_rec", shape_macro_rec)
+print("shape_micro_rec", shape_micro_rec)
+print("shape_F1", shape_F1)
 
 # 计算AverageMSE
 print("AverageMSe_ImageLevel", np.sum(np.array(MSE_list)) / len(MSE_list))
@@ -381,12 +379,12 @@ print('total skip number is:', skip_jsq)
 
 WriteFileName = opt.checkpoints_dir + '/' + opt.name + '/' + 'MSEres.txt'
 with open(WriteFileName, 'w') as f:
-    # f.write("shape_accuracy:" + str(shape_accuracy) + '\n')
-    # f.write("shape_macro_pre:" + str(shape_macro_pre) + '\n')
-    # f.write("shape_micro_pre:" + str(shape_micro_pre) + '\n')
-    # f.write("shape_macro_rec:" + str(shape_macro_rec) + '\n')
-    # f.write("shape_micro_rec:" + str(shape_micro_rec) + '\n')
-    # f.write("shape_F1:" + str(shape_F1) + '\n')
+    f.write("shape_accuracy:" + str(shape_accuracy) + '\n')
+    f.write("shape_macro_pre:" + str(shape_macro_pre) + '\n')
+    f.write("shape_micro_pre:" + str(shape_micro_pre) + '\n')
+    f.write("shape_macro_rec:" + str(shape_macro_rec) + '\n')
+    f.write("shape_micro_rec:" + str(shape_micro_rec) + '\n')
+    f.write("shape_F1:" + str(shape_F1) + '\n')
     f.write("AverageMSe_ImageLevel" + str(np.sum(np.array(MSE_list)) / len(MSE_list)) + '\n')
     f.write("AverageHammingLoss_LabelLevel" + str(np.sum(np.array(MSE_list_label)) / len(MSE_list_label)) + '\n')
     f.write("Choose_Obj_mIOU" + str(np.sum(np.array(mIOU_ChoseObj_list)) / len(mIOU_ChoseObj_list)) + '\n')

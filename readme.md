@@ -22,7 +22,7 @@ The `AMEx_Loss/MyTrain` includes how the AMEx is used in the optimizer.
 ## AMEx Loss & MEx Loss on Semantic Inpainting on Segmentation Map (SISM)
 ![alt ](./SISM_Process.png)
 
-The environment is in `semantic_editing/py35pt041.yaml`.
+The environment is in `semantic_editing/py35pt04.yaml`.
 
 ### For cityscape
 
@@ -32,7 +32,7 @@ For Pipeline,
 
 For Pipeline + MEx Loss,
 
-`python MyTrain.py --name lable2city_128p_Full_OnlyMultiEx --model MyBasePix2PixHDModel --is_scGraph 1 --label_nc 36 --dataroot ./datasets2/cityscapes/ --is_shapePrior 0 --is_scGraph 3 --niter 100 --niter_decay 100 --ImageFileEnd _img2labelcolor --MultiExpanTimes 4 --MultiExpanRadius 5 --gpu_ids 0 --loadSize 256 --fineSize 128 --labmdaShape 1 --labmdaMulExp 1`
+`python MyTrain.py --name cityscape_OnlyMultiExp4_newcolor --model MyBasePix2PixHDModel --is_scGraph 1 --label_nc 36 --dataroot ./datasets2/cityscapes/ --is_shapePrior 0 --is_scGraph 3 --niter 100 --niter_decay 100 --ImageFileEnd _img2labelcolor --MultiExpanTimes 4 --MultiExpanRadius 5 --gpu_ids 0 --loadSize 256 --fineSize 128 --labmdaShape 1 --labmdaMulExp 1`
 
 For Pipeline + AMEx Loss,
 
