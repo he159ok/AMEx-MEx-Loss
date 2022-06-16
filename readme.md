@@ -10,7 +10,7 @@ Comparing with MEx loss, AMEx loss uses an image in full size but masks its diff
 
 Folder `semantic_editing` includes the implementation of 3-channel SISM task. 
 It includes both MEx loss and AMEx loss on SISM.
-It does not include the downstream task, which use the SISM output as input in a downstream task(e.g. image translation task, semantic image inpainting...).
+It does not include downstream tasks, which uses the SISM output as input in a downstream task(e.g. image translation task, semantic image inpainting...).
 
 ## AMEx Loss on natural image processing
 The AMEx Loss is implmented in `AMEx_Loss/net_gl_mex.py-> _netlocalD`. 
